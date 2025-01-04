@@ -22,7 +22,6 @@ a:hover {
   text-decoration: underline;
 }
 
-/* Navbar Styles */
 /* General Navbar Styles */
 nav {
   background-color: #4b2e83;
@@ -40,7 +39,7 @@ nav .logo {
 }
 
 nav .menu {
-  display: flex;
+  display: flex; /* Default: horizontal menu */
   gap: 15px;
 }
 
@@ -54,43 +53,70 @@ nav .menu a:hover {
   border-bottom: 2px solid white;
 }
 
-/* Hamburger Icon */
-.menu-icon {
-  display: none;
-  font-size: 24px;
+/* Hamburger Icon (Toggle Button) */
+.menu-toggle {
+  display: none; /* Hidden by default */
+  flex-direction: column;
+  justify-content: space-between;
+  height: 24px;
   cursor: pointer;
 }
 
-/* Responsive Design for Phones */
-@media (max-width: 768px) {
-  nav {
-    flex-direction: column;
-    align-items: flex-start;
-  }
+.menu-toggle .bar {
+  width: 30px;
+  height: 3px;
+  background-color: white;
+  border-radius: 2px;
+  transition: all 0.3s ease;
+}
 
-  .menu-icon {
-    display: block; /* Show the hamburger icon */
+/* Responsive Design: Switch to Toggle Menu */
+@media (max-width: 768px) {
+  .menu-toggle {
+    display: flex; /* Show toggle button on small screens */
   }
 
   .menu {
-    display: none; /* Hide menu by default */
-    flex-direction: column;
-    width: 100%;
-  }
-
-  .menu a {
-    padding: 10px;
-    text-align: left;
-    border-bottom: 1px solid #ffffff33; /* Light divider between links */
+    display: none; /* Initially hide the menu */
+    flex-direction: column; /* Stack links vertically */
+    width: 100%; /* Full width for the dropdown */
+    background-color: #4b2e83;
+    padding: 0;
+    position: absolute;
+    top: 60px; /* Adjust to align with the bottom of the navbar */
+    left: 0;
+    z-index: 1000; /* Ensure the menu appears above other content */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transition: max-height 0.3s ease, opacity 0.3s ease; /* Smooth dropdown effect */
+    max-height: 0; /* Collapsed by default */
+    overflow: hidden; /* Prevent content overflow when collapsed */
+    opacity: 0; /* Hidden initially */
   }
 
   .menu.show {
     display: flex; /* Show menu when toggled */
+    max-height: 300px; /* Adjust to fit your content (expandable height) */
+    opacity: 1; /* Fully visible */
   }
-}
 
-nav .menu a:hover {
-  border-bottom: 2px solid white;
+  .menu a {
+    padding: 15px;
+    text-align: center;
+    border-bottom: 1px solid #ffffff33;
+  }
+
+  /* Hamburger Icon Animation */
+  .menu-toggle.active .bar:nth-child(1) {
+    transform: translateY(9px) rotate(45deg);
+  }
+
+  .menu-toggle.active .bar:nth-child(2) {
+    opacity: 0; /* Hide the middle bar */
+  }
+
+  .menu-toggle.active .bar:nth-child(3) {
+    transform: translateY(-9px) rotate(-45deg);
+  }
 }
 
 /* Container Styling */
