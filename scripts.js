@@ -15,3 +15,8 @@ function showSlides() {
 }
 
 setInterval(() => changeSlide(1), 5000); // Automatically switch slides every 5 seconds
+
+function toggleMenu() {
+    const menu = document.querySelector('.menu');
+    menu.classList.toggle('show');
+  }
